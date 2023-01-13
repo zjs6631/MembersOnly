@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 /* GET sign-up page. */
 router.get('/sign-up', function(req, res, next) {
-  res.render('sign-up', { title: 'Create account' });
+  res.render('sign-up', { title: 'Create account', errors: null});
 });
 
 router.post('/sign-up', userController.user_signup_post);

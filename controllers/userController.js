@@ -27,7 +27,7 @@ exports.user_signup_post = [
 
         if(!errors.isEmpty()){
             console.log(errors);
-            res.render("index", {title: "there were errors", errors: errors.array()});
+            res.render("sign-up", {title: "there were errors", errors: errors.array()});
             return;
         }
 
@@ -42,7 +42,7 @@ exports.user_signup_post = [
                     return next(err);
                 }
                 console.log("error is right here");
-                res.render('index', {title: "user created!", user: user, errors: errors.array()});
+                res.render('index', {title: "user created!", user: user});
             });
 
         });

@@ -20,5 +20,12 @@
         <input name="confirmpassword" type="password" />
         <button>Sign Up</button>
     </form>
+    <% if (errors) { %>
+        <ul>
+          <% errors.forEach(function(error){ %>
+            <li> <%= error.msg %></li>
+          <% }) %>
+        </ul>
+    <% } %>
 </body>
 </html>
