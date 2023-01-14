@@ -32,11 +32,17 @@ exports.user_signup_post = [
         }
 
         bcrypt.hash(req.body.password, 10, (err, hashedPassword) =>{
+            let isAdmin = false;
+            if(req.body.isAdmin === process.env.adminpass){
+                isAdmin = true;
+            }
             const user = new User({
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 username: req.body.username,
                 password: hashedPassword,
+                isMember : false,
+                isAdmin: isAdmin,
             }).save((err)=>{
                 if(err){
                     return next(err);
@@ -50,3 +56,7 @@ exports.user_signup_post = [
     },
 
 ]
+
+exports.user_join_get = function (req, res, next) {
+    
+}
