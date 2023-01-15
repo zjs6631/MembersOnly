@@ -7,8 +7,11 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <a href="log-in"><button>Log in</button></a>
+    <a href="sign-up"><button>Sign up</button></a>
     <% if(user) { %>
       <h1>Hello there, <%= user.firstname %> <%= user.lastname %></h1>
+      <a href='/log-out'><button>Log Out</button></a>
     <% } else { %>
       <h1> No user logged in</h1>
       <% } %>
