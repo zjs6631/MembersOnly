@@ -14,6 +14,7 @@
       <a href='/log-out'><button>Log Out</button></a>
       <% if(user.isMember){ %>
           <h1>Thanks for being a member</h1>
+          <a href='/message'><button>+ Message</button></a>
       <% } else {%>
           <a href='/join'><button>Join Now</button></a>
           <% } %>
@@ -27,6 +28,7 @@
           <li>
             <%= message.message %>
             <%= message.createdAt %>
+            <%= message.authorID.username %>
           </li>
        <% }) %>
       </ul>

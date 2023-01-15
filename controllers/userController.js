@@ -63,12 +63,42 @@ exports.user_join_get = (req, res, next)=>{
 
 
 exports.user_join_post = function (req, res, next){
+    console.log(res.locals)
     User.findByIdAndUpdate(res.locals.currentUser._id, {isMember: true})
     .exec(function (err, results){
         if(err){
             return next(err);
         }
        
-        res.render('index', {title:"Welcome!", user: res.locals.currentUser});
+        res.redirect('/');
     })
 }
+
+exports.message_form_get = function (req, res, next){
+    res.render('message-form', {title: "Create Message"})
+}
+
+exports.message_form_post = [
+    body("message", "text required").trim().isLength({min: 1}).escape(),
+    (req, res, next) =>{
+
+        const errors = validationResult(req); //returns an array of errors if any
+
+        if(!errors.isEmpty()){
+            console.log(errors);
+            res.render("message-form", {title: "there were errors", errors: errors.array()});
+            return;
+        }
+        console.log(req.locals)
+        const message = new Message({
+            message: req.body.message,
+            authorID: res.locals.currentUser._id,
+        }).save((err)=>{
+            if(err){
+                return next(err);
+            }
+            console.log("error is right here");
+            res.redirect("/");
+        })
+    }
+]

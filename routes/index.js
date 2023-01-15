@@ -10,6 +10,7 @@ const Message = require('../models/Message');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   Message.find()
+  .populate("authorID")
   .exec(function (err, results){
     if(err){
         return next(err);
@@ -52,6 +53,10 @@ router.get("/log-out", (req, res, next) => {
 router.get("/join", userController.user_join_get);
 
 router.post("/join", userController.user_join_post);
+
+router.get("/message", userController.message_form_get);
+
+router.post("/message", userController.message_form_post);
 
 
 
