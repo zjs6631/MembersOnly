@@ -3,12 +3,20 @@ var router = express.Router();
 var passport = require('passport');
 
 const userController = require('../controllers/userController');
+const Message = require('../models/Message');
 
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', user: req.user});
+  Message.find()
+  .exec(function (err, results){
+    if(err){
+        return next(err);
+    }
+    console.log(results)
+    res.render('index', {title:"Welcome!", user: res.locals.currentUser, messages: results});
+});
 });
 
 /* GET sign-up page. */
@@ -27,8 +35,8 @@ router.get('/log-in', function(req,res,next){
 router.post(
   "/log-in",
   passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
+    successRedirect: "/join",
+    failureRedirect: "/log-in"
   })
 );
 
@@ -40,6 +48,14 @@ router.get("/log-out", (req, res, next) => {
     res.redirect("/");
   });
 });
+
+router.get("/join", userController.user_join_get);
+
+router.post("/join", userController.user_join_post);
+
+
+
+
 
 
 module.exports = router;

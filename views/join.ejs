@@ -7,9 +7,15 @@
     <title>Join Now</title>
 </head>
 <body>
+    <% if(user) { %>
+        <h1>Hello there, <%= user.firstname %> <%= user.lastname %></h1>
+        <a href='/log-out'><button>Log Out</button></a>
+      <% } else { %>
+        <h1> No user logged in</h1>
+        <% } %>
     <form action="/join" method="POST">
         <h1>Dont miss out on all the insider info!</h1>
-        <button type="submit">Join the club</button>
+        <a href='/'><button type="submit">Join the club</button></a>
     </form>
 </body>
 </html>

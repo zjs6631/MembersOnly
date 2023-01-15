@@ -12,9 +12,25 @@
     <% if(user) { %>
       <h1>Hello there, <%= user.firstname %> <%= user.lastname %></h1>
       <a href='/log-out'><button>Log Out</button></a>
+      <% if(user.isMember){ %>
+          <h1>Thanks for being a member</h1>
+      <% } else {%>
+          <a href='/join'><button>Join Now</button></a>
+          <% } %>
     <% } else { %>
       <h1> No user logged in</h1>
       <% } %>
+    
+    <% if(messages) { %>
+      <ul>
+        <% messages.forEach((message) =>{ %>
+          <li>
+            <%= message.message %>
+            <%= message.createdAt %>
+          </li>
+       <% }) %>
+      </ul>
+    <% } %>
     
   </body>
 </html>

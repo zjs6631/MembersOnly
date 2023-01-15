@@ -57,6 +57,18 @@ exports.user_signup_post = [
 
 ]
 
-exports.user_join_get = function (req, res, next) {
-    
+exports.user_join_get = (req, res, next)=>{
+     res.render("join", {title: "Join now", user: req.user});
+    }
+
+
+exports.user_join_post = function (req, res, next){
+    User.findByIdAndUpdate(res.locals.currentUser._id, {isMember: true})
+    .exec(function (err, results){
+        if(err){
+            return next(err);
+        }
+       
+        res.render('index', {title:"Welcome!", user: res.locals.currentUser});
+    })
 }
